@@ -18,33 +18,25 @@ function runEnter() {
 
     // Prevent the page from refreshing
     d3.event.preventDefault();
-  
+
     // Select the input element and get the raw HTML node
     var inputElement = d3.select("#datetime");
 
     // Get the value property of the input element
     var inputValue = inputElement.property("value");
 
-    // Make sure date entered is in the data
-    //if inputValue is in tableData.datetime {
-        // Get the UFO sightings for the date equal to the input
-        var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
-        console.log(filteredData)
-        writeTable(filteredData);
-    //}
-    //else {
-
-    //}
-
-    
+    // Get the UFO sightings for the date equal to the input
+    var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
+    console.log(filteredData);
+    writeTable(filteredData);    
 };
 
-// Select table body element from html
-var tbody = d3.select("tbody");
-writeTable(tableData);
-
-// Iterate over all entries in the data and append html table
-function writeTable(inputData) {    
+function writeTable(inputData) {
+    // Select table body element from html
+    var tbody = d3.select("tbody");
+    // Clear old table body data
+    d3.select("tbody").selectAll("tr").remove(); 
+    // Iterate over all entries in the data and append html table   
     inputData.forEach((sighting) => {
         var row = tbody.append("tr");
         Object.entries(sighting).forEach(([key, value]) => {
@@ -53,3 +45,6 @@ function writeTable(inputData) {
         });
     });
 };
+
+// Display all UFO sighting info
+writeTable(tableData);
