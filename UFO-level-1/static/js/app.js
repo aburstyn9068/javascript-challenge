@@ -26,7 +26,10 @@ function runEnter() {
     var inputValue = inputElement.property("value");
 
     // Get the UFO sightings for the date equal to the input
-    var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
+    var filteredData = tableData;
+    if (inputValue != "") {
+        filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
+    }
     console.log(filteredData);
     writeTable(filteredData);    
 };
